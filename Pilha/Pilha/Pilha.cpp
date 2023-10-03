@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdio>
 using namespace std;
 
 // definicao de tipo
@@ -12,27 +13,27 @@ NO* topo = NULL;
 // headers
 void menu();
 void inicializar();
-void pop();
+void k_pop();
 void push();
+void exibir();
 //--------------------------
 
 
-int main()
-{
+int main(){
 	menu();
 }
 
-void menu()
-{
+void menu(){
 	int op = 0;
 	while (op != 4) {
-		system("cls"); // somente no windows
+		system("clear"); // somente no windows
 		cout << "Menu Pilha";
 		cout << endl << endl;
 		cout << "1 - Inicializar Pilha \n";
 		cout << "2 - Inserir elemento (Push) \n";
 		cout << "3 - Remover elementos (Pop) \n";
 		cout << "4 - Sair \n";
+		cout << "5 - Exibir elementos \n"; 
 
 
 		cout << "Opcao: ";
@@ -44,22 +45,23 @@ void menu()
 			break;
 		case 2:push();
 			break;
-		case 3: pop();
+		case 3: k_pop();
 			break;
+		case 5: exibir();
+		    break;
 		case 4:
 			return;
 		default:
 			break;
 		}
 
-		system("pause"); // somente no windows
+		getchar(); // somente no windows
 	}
 }
 
-void inicializar()
-{
+void inicializar(){
 
-	// se a lista j� possuir elementos
+	// se a lista j� possuir elementos
 	// libera a memoria ocupada
 	NO* aux = topo;
 	while (aux != NULL) {
@@ -70,12 +72,12 @@ void inicializar()
 
 	topo = NULL;
 	cout << "Pilha inicializada \n";
+	getchar();
 
 }
 
 
-void push()
-{
+void push(){
 	// aloca memoria dinamicamente para o novo elemento
 	NO* novo = (NO*)malloc(sizeof(NO));
 	if (novo == NULL)
@@ -86,14 +88,35 @@ void push()
 	cout << "Digite o elemento: ";
 	cin >> novo->valor;
 	novo->prox = NULL;
-
-
-}
-
-void pop()
-{
-
 	
+	if (topo == NULL){
+	    topo = novo;
+	}
+	else
+	{
+	    novo->prox = topo;
+	    topo = novo;
+	}
+	getchar();
 
 }
+
+void k_pop(){
+    NO* jimin = topo;
+    topo = topo->prox;
+    cout << "Você deletou o kpoper número: " << jimin->valor;
+    free(jimin);
+	getchar();
+
+}
+
+void exibir(){
+    NO* aux =topo;
+    while(aux!=NULL){
+        cout<<aux->valor<<endl;
+        aux=aux->prox;
+    }
+    getchar();
+}
+
 
